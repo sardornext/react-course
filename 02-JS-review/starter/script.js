@@ -66,7 +66,7 @@ const data = [
     publicationDate: "1965-01-01",
     author: "Frank Herbert",
     genres: ["science fiction", "novel", "adventure"],
-    hasMovieAdaptation: true,
+    hasMovieAdaptation: false,
     pages: 658,
     translations: {
       spanish: "",
@@ -142,3 +142,149 @@ function getBooks() {
 function getBook(id) {
   return data.find((d) => d.id === id);
 }
+
+/*
+// Destrcuturing
+
+const book = getBook(3);
+book;
+//const title = book.title;
+//const author = book.author;
+const { title, author, pages, publicationDate, genres, hasMovieAdaptation } =
+  book;
+//title;
+//author;
+console.log(title, author, genres);
+
+// const primaryGenre = genres[0];
+// const secondaryGenre = genres[1];
+
+const [primaryGenre, secondaryGenre, ...otherGenre] = genres;
+
+console.log(primaryGenre, secondaryGenre, otherGenre);
+
+const newGenres = [...genres, "epic new new"];
+console.log(newGenres);
+
+const updatedBook = {
+  ...book,
+  // Adding a new property
+  moviePublicationDate: "2001-12-19",
+  // Overwriting an existing property
+  //pages: 1212,
+};
+updatedBook;
+
+const getYear = (str) => str.split("-")[0];
+
+console.log(getYear(publicationDate));
+
+const summary = `a book by ${author} called ${title} has ${pages} pages`;
+summary;
+
+const pagesRange = pages > 1000 ? "long book" : "short book";
+pagesRange;
+console.log(`the book is ${pagesRange}`);
+// 2 + 2 === 4 ? "yes" : "no";
+
+// function declaration
+// function getYear(str) {
+//   return str.split("-")[0];
+// }
+
+// function expression
+// const getYear = (str) => str.split("-")[0];
+
+// console.log(getYear(publicationDate));
+
+console.log(true && false);
+console.log(true || false);
+console.log(!true);
+console.log(false && "some string");
+console.log(true && "some string");
+console.log(hasMovieAdaptation && "This book has a movie adaptation");
+
+// falsy: 0, '', null, undefined, NaN, false
+console.log("jonas" && "some string");
+console.log("" && "some string");
+console.log(0 && "some string");
+
+console.log("jonas" || "some string");
+console.log("" || "some string");
+console.log(0 || "some string");
+console.log(true || "some string");
+console.log(false || "some string");
+
+console.log(!true);
+console.log(book.translations.spanish);
+
+const spanishTranslation = book.translations.spanish || "no translation";
+console.log(spanishTranslation);
+spanishTranslation;
+
+// console.log(book.reviews.librarything.reviewsCount);
+
+// const countWrong = book.reviews.librarything.reviewsCount || "no data";
+// countWrong;
+
+// const count = book.reviews.librarything.reviewsCount ?? "no data";
+// count;
+
+// function getTotalReviewCount(book) {
+//   return (
+//     book.reviews.goodreads.reviewsCount +
+//     (book.reviews.librarything.reviewsCount ?? 0)
+//   );
+// }
+
+// console.log(getTotalReviewCount(book));
+
+// function getTotalReviewCount(book) {
+//   return (
+//     book.reviews.goodreads.reviewsCount +
+//     (book.reviews.librarything.reviewsCount || 0)
+//   );
+// }
+
+function getTotalReviewCount(book) {
+  const goodreads = book.reviews?.goodreads.reviewsCount;
+  const librarything = book.reviews?.librarything?.reviewsCount ?? 0;
+  return goodreads + librarything;
+}
+
+console.log(getTotalReviewCount(book));
+*/
+
+function getTotalReviewCount(book) {
+  const goodreads = book.reviews?.goodreads.reviewsCount;
+  const librarything = book.reviews?.librarything?.reviewsCount ?? 0;
+  return goodreads + librarything;
+}
+
+// map method - returns a new array with the same length as the original array but with the elements transformed by the callback function that we pass to it as an argument (the callback function is called for each element in the array) - the original array is not modified by the map method - the map method does not mutate the original array - the map method returns a new array - the map method is a pure function - the map method is a higher order function - the map method is an array method
+const books = getBooks();
+//books;
+const x = [1, 2, 3, 4, 5].map((el) => el * 2);
+console.log(x);
+
+const titles = books.map((book) => book.title);
+titles;
+
+const essentialData = books.map((book) => ({
+  title: book.title,
+  author: book.author,
+  reviewsCount: getTotalReviewCount(book),
+}));
+essentialData;
+
+// filter method - returns a new array with the elements that pass the test implemented by the callback function that we pass to it as an argument (the callback function is called for each element in the array) - the original array is not modified by the filter method - the filter method does not mutate the original array - the filter method returns a new array - the filter method is a pure function - the filter method is a higher order function - the filter method is an array method
+
+const longBooksWithMovie = books
+  .filter((book) => book.pages > 500)
+  .filter((book) => book.hasMovieAdaptation);
+longBooksWithMovie;
+
+const adventureBooks = books
+  .filter((books) => books.genres.includes("adventure"))
+  .map((book) => book.title);
+adventureBooks;
