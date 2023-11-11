@@ -254,7 +254,7 @@ function getTotalReviewCount(book) {
 
 console.log(getTotalReviewCount(book));
 */
-
+/*
 function getTotalReviewCount(book) {
   const goodreads = book.reviews?.goodreads.reviewsCount;
   const librarything = book.reviews?.librarything?.reviewsCount ?? 0;
@@ -288,3 +288,100 @@ const adventureBooks = books
   .filter((books) => books.genres.includes("adventure"))
   .map((book) => book.title);
 adventureBooks;
+
+// reduce method - returns a single value that is the result of the callback function that we pass to it as an argument (the callback function is called for each element in the array) - the original array is not modified by the reduce method - the reduce method does not mutate the original array - the reduce method returns a single value - the reduce method is a pure function - the reduce method is a higher order function - the reduce method is an array method
+
+const totalReviewsCount = books.reduce(
+  (acc, book) => acc + getTotalReviewCount(book),
+  0
+);
+totalReviewsCount;
+
+// the array sort method mutates the original array - the array sort method is not a pure function - the array sort method is a higher order function - the array sort method is an array method
+
+const sortedBooks = books.sort((a, b) => a.pages - b.pages);
+sortedBooks;
+
+const sortedBooksByReviewsCount = books.sort(
+  (a, b) => getTotalReviewCount(b) - getTotalReviewCount(a)
+);
+
+sortedBooksByReviewsCount;
+
+// the array slice method does not mutate the original array - the array slice method is a pure function - the array slice method is a higher order function - the array slice method is an array method
+
+// 1) add book object to array
+const newBook = {
+  id: 6,
+  title: "Harry Potter and the Chamber of Secrets",
+  publicationDate: "1998-07-02",
+  author: " J. K. Rowling",
+};
+const bookAfterAdd = [...books, newBook];
+bookAfterAdd;
+
+// 2) remove book object from array
+const bookAfterRemove = books.filter((book) => book.id !== 3);
+bookAfterRemove;
+
+// 3) update book object in array
+const updatedBook = {
+  ...books[0],
+  title: "The Lord of the Rings: The Fellowship of the Ring",
+};
+const bookAfterUpdate = books.map((book) =>
+  book.id === updatedBook.id ? updatedBook : book
+);
+bookAfterUpdate;
+
+const sortedByPages = books.sort((a, b) => a.pages - b.pages);
+sortedByPages;
+
+const sortedByReviews = books.sort(
+  (a, b) => getTotalReviewCount(b) - getTotalReviewCount(a)
+);
+
+sortedByReviews;
+
+// 1) add book object to array
+const newBook1 = {
+  id: 6,
+  title: "Harry Potter and the Chamber of Secrets",
+  publicationDate: "1998-07-02",
+  auther: " J. K. Rowling",
+};
+const bookAfterAdd1 = [...books, newBook];
+*/
+
+// fetch("https://jsonplaceholder.typicode.com/todos")
+//   .then((res) => res.json())
+//   .then((data) => console.log(data));
+
+// console.log("sardor");
+
+// aynchnronous is when the code is not executed immediately
+// synchronous is when the code is executed immediately
+// fetch is a function that returns a promise
+// a promise is an object that represents a future value
+// a promise is a placeholder for a value that we don't have yet
+// a promise is a placeholder for a value that we will have in the future
+// a promise is a placeholder for a value that we will have in the future
+// a promise is a placeholder for a value that we will have in the future
+
+async function getTodos() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/todos");
+  const data = await res.json();
+  console.log(data);
+}
+
+getTodos();
+
+console.log("sardor");
+
+// async function getTodos() {
+//   const res = await fetch("https://jsonplaceholder.typicode.com/todos");
+//   const data = await res.json();
+//   console.log(data);
+// }
+
+// getTodos();
