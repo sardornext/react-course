@@ -1,5 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import PropTypes from "prop-types";
 import "./App.css";
 
 const skills = [
@@ -70,8 +71,13 @@ function Intro() {
 function SkillList() {
   return (
     <div className="skill-list">
-      {skills.map((skill) => (
-        <Skill skill={skill.skill} color={skill.color} level={skill.level} />
+      {skills.map((skill, index) => (
+        <Skill
+          key={index}
+          skill={skill.skill}
+          color={skill.color}
+          level={skill.level}
+        />
       ))}
     </div>
   );
@@ -89,6 +95,12 @@ function Skill({ skill, color, level }) {
     </div>
   );
 }
+
+Skill.propTypes = {
+  skill: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+  level: PropTypes.string.isRequired,
+};
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
