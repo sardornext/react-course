@@ -18,6 +18,38 @@ export default function App() {
   return (
     <div>
       <Steps />
+      <StepMessage step={1}>
+        Learn the Basics of JavaScript
+        <ul>
+          <li>Variables</li>
+          <li>Functions</li>
+          <li>Objects</li>
+          <li>Arrays</li>
+          <li>Loops</li>
+          <li>Conditionals</li>
+        </ul>
+      </StepMessage>
+      <StepMessage step={2}>
+        Understand HTML and CSS
+        <ul>
+          <li>HTML Tags</li>
+          <li>CSS Selectors</li>
+          <li>Flexbox</li>
+          <li>Grid</li>
+          <li>Responsive Design</li>
+        </ul>
+      </StepMessage>
+      <StepMessage step={3}>
+        Get Comfortable with ES6+ Features
+        <ul>
+          <li>Arrow Functions</li>
+          <li>Template Literals</li>
+          <li>Modules</li>
+          <li>Classes</li>
+          <li>Async/Await</li>
+          <li>Fetch API</li>
+        </ul>
+      </StepMessage>
       {/* <Steps /> */}
     </div>
   );
@@ -56,9 +88,23 @@ function Steps() {
             <div className={step >= 10 ? "active" : ""}>10</div>
           </div>
 
-          <p className="message">
-            Step {step}: {message[step - 1]}
-          </p>
+          {/* <p className="message">
+            <h3>Step {step}</h3>
+            {message[step - 1]}
+          </p> */}
+
+          <StepMessage step={step}>
+            {message[step - 1]}
+            <div className="buttons">
+              <Button
+                bgColor="#7950f2"
+                textColor="#fff"
+                onClick={() => alert(`Learn how to ${message[step - 1]}`)}
+              >
+                Learn how
+              </Button>
+            </div>
+          </StepMessage>
 
           <div className="buttons">
             <Button bgColor="#7950f2" textColor="#fff" onClick={handlePrevious}>
@@ -72,6 +118,15 @@ function Steps() {
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+function StepMessage({ step, children }) {
+  return (
+    <div className="message">
+      <h3>Step {step}</h3>
+      {children}
     </div>
   );
 }
